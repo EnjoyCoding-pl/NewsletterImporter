@@ -1,0 +1,15 @@
+source https://api.nuget.org/v3/index.json
+
+storage: none
+framework: net5.0
+
+nuget Dapper
+nuget Open.ChannelExtensions
+nuget Cocona
+nuget Microsoft.Extensions.Hosting
+nuget Microsoft.Data.SqlClient
+nuget Polly
+nuget System.Text.Json
+nuget Microsoft.Extensions.Http
+nuget Microsoft.Extensions.Http.Polly
+nuget MongoDB.Driver

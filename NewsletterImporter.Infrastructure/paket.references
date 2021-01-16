@@ -1,0 +1,10 @@
+Microsoft.Data.SqlClient
+Dapper
+Polly
+Microsoft.Extensions.DependencyInjection
+System.Text.Json
+Microsoft.Extensions.Http
+Microsoft.Extensions.Http.Polly
+MongoDB.Driver
+Microsoft.Extensions.Configuration.Abstractions
+Microsoft.Extensions.Configuration.Binder

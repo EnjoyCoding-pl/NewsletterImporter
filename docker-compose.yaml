@@ -1,0 +1,22 @@
+version: "3.7"
+
+services:
+  database:
+    image: mcr.microsoft.com/mssql/server
+    hostname: sql-server
+    container_name: newsletter_importer_sql_server
+    ports:
+      - "1433:1433"
+    environment: 
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: "Test123!@#"
+
+  mongodb:
+    image: mongo
+    restart: "always"
+    container_name: newsletter_importer_mongodb
+    ports:
+      - "2700:27017"
+    environment: 
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: test123
