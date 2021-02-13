@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using NewsletterImporter.Core.Interfaces;
 using NewsletterImporter.Domain.Models;
-using NewsletterImporter.Infrastructure.Models;
+using NewsletterImporter.Infrastructure.Gateways.Models;
 
 namespace NewsletterImporter.Infrastructure.Gateways
 {
@@ -23,21 +23,16 @@ namespace NewsletterImporter.Infrastructure.Gateways
             var client = _clientFactory.CreateClient(ClientName);
             var response = await client.GetAsync($"check?access_key={_accessToken}&email={email}&smtp=1&format=1");
 
-            if (response.IsSuccessStatusCode)
+            if (!response.IsSuccessStatusCode) return null;
+            var body = await response.Content.ReadAsStringAsync();
+            var status = JsonSerializer.Deserialize<EmailStatusDTO>(body);
+
+            return new EmailStatus
             {
-                var body = await response.Content.ReadAsStringAsync();
-                var status = JsonSerializer.Deserialize<EmailStatusDTO>(body);
+                IsFormatValid = status.IsFormatValid,
+                IsMxFound = status.IsMxFound
+            };
 
-                return new EmailStatus
-                {
-                    Email = status.Email,
-                    EmailSpellCheck = status.EmailSpellcheck,
-                    IsFormatValid = status.IsFormatValid,
-                    IsMxFound = status.IsMxFound
-                };
-            }
-
-            return null;
         }
     }
 }

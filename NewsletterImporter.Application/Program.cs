@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Cocona;
 using Cocona.Hosting;
 using Microsoft.Extensions.DependencyInjection;
@@ -26,7 +25,7 @@ namespace NewsletterImporter.Application
             await importer.ImportUsers();
         }
 
-        public static void ConfigureServices(HostBuilderContext context, IServiceCollection services)
+        private static void ConfigureServices(HostBuilderContext context, IServiceCollection services)
         {
             services.AddNewsletterImporterCore();
             services.AddNewsletterImporterInfrastructure(context.Configuration);

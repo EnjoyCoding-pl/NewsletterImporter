@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace NewsletterImporter.Infrastructure.Models
+namespace NewsletterImporter.Infrastructure.Gateways.Models
 {
     public class EmailStatusDTO
     {

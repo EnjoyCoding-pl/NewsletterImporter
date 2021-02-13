@@ -43,7 +43,7 @@ namespace NewsletterImporter.Infrastructure.Storages
                 Sort = Builders<NewsLetterUser>.Sort.Ascending(x => x.Email)
             };
 
-            var cursor = await collection.FindAsync<NewsLetterUser>(Builders<NewsLetterUser>.Filter.Empty, options);
+            var cursor = await collection.FindAsync(Builders<NewsLetterUser>.Filter.Empty, options);
 
             while (await cursor.MoveNextAsync())
             {
@@ -51,7 +51,7 @@ namespace NewsletterImporter.Infrastructure.Storages
                 {
                     yield return new User
                     {
-                        Email = item.Email,
+                        Email = item.Email
                     };
                 }
             }

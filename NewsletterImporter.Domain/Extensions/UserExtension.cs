@@ -14,8 +14,8 @@ namespace NewsletterImporter.Domain.Extensions
             var leftEnumerator = leftSource.GetAsyncEnumerator();
             var rightEnumerator = rightSource.GetAsyncEnumerator();
 
-            bool leftHasNext = await leftEnumerator.MoveNextAsync();
-            bool rightHasNext = await rightEnumerator.MoveNextAsync();
+            var leftHasNext = await leftEnumerator.MoveNextAsync();
+            var rightHasNext = await rightEnumerator.MoveNextAsync();
 
             while (leftHasNext || rightHasNext)
             {
@@ -34,12 +34,12 @@ namespace NewsletterImporter.Domain.Extensions
 
                     yield return (leftItem, rightItem);
                 }
-                else if ((compareResult < 0 && leftHasNext) || (leftHasNext && !rightHasNext))
+                else if (compareResult < 0 && leftHasNext || leftHasNext && !rightHasNext)
                 {
                     leftHasNext = await leftEnumerator.MoveNextAsync();
                     yield return (leftItem, null);
                 }
-                else if ((compareResult > 0 && rightHasNext) || (rightHasNext && !leftHasNext))
+                else if (compareResult > 0 ||  !leftHasNext)
                 {
                     rightHasNext = await rightEnumerator.MoveNextAsync();
                     yield return (null, rightItem);

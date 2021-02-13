@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using Microsoft.Data.SqlClient;
-using NewsletterImporter.Core.Abstract;
 using NewsletterImporter.Domain.Models;
 using Dapper;
 using Microsoft.Extensions.Configuration;
+using NewsletterImporter.Core.Interfaces;
 
 namespace NewsletterImporter.Infrastructure.Repositories
 {
@@ -19,7 +19,7 @@ namespace NewsletterImporter.Infrastructure.Repositories
         public async IAsyncEnumerable<User> GetSignedUsersAsync()
         {
             var connectionString = _configuration.GetConnectionString("SqlServer");
-            using (var connection = new SqlConnection(connectionString))
+            await using (var connection = new SqlConnection(connectionString))
             {
                 var reader = await connection.ExecuteReaderAsync(new CommandDefinition(@"
                     SELECT Email FROM [dbo].[Users] WHERE Newsletter = 1 ORDER BY Email"));

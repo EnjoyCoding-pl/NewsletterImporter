@@ -1,12 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
 using System.Threading.Channels;
 using System.Threading.Tasks;
 using NewsletterImporter.Domain.Extensions;
 using Open.ChannelExtensions;
-using NewsletterImporter.Core.Abstract;
 using NewsletterImporter.Core.Interfaces;
 using NewsletterImporter.Domain.Models;
 
@@ -53,7 +48,7 @@ namespace NewsletterImporter.Core
             await deleteReader;
             await addReader;
         }
-        private async Task WriteToActionChannel((User Left, User Right) item, ChannelWriter<User> addChannel, ChannelWriter<User> deleteChannel)
+        private static async Task WriteToActionChannel((User Left, User Right) item, ChannelWriter<User> addChannel, ChannelWriter<User> deleteChannel)
         {
             if (item.ShouldAdd())
                 await addChannel.WriteAsync(item.Left);

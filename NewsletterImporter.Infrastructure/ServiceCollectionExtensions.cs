@@ -1,9 +1,5 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
-using NewsletterImporter.Core.Abstract;
 using NewsletterImporter.Infrastructure.Gateways;
 using NewsletterImporter.Infrastructure.Repositories;
 using Polly;
@@ -30,7 +26,7 @@ namespace NewsletterImporter.Infrastructure
             .AddPolicyHandler(GetPolicy());
         }
 
-        public static IAsyncPolicy<HttpResponseMessage> GetPolicy()
+        private static IAsyncPolicy<HttpResponseMessage> GetPolicy()
         {
             return HttpPolicyExtensions.HandleTransientHttpError()
             .OrResult(result => result.StatusCode == HttpStatusCode.NotFound)
